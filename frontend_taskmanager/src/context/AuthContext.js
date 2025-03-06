@@ -5,31 +5,38 @@ import { useNavigate } from "react-router-dom";
 const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
-  const [username, setUsername] = useState(null); 
+  const [user, setUser] = useState(
+    JSON.parse(localStorage.getItem("user")) || null
+  );
   const [token, setToken] = useState(localStorage.getItem("token") || "");
-  const navigate = useNavigate();
+  const navigate = useNavigate();  
 
   useEffect(() => {
     if (token) {
       localStorage.setItem("token", token);
+      localStorage.setItem("user", JSON.stringify(user));
     } else {
       localStorage.removeItem("token");
+      localStorage.removeItem("user");
     }
-  }, [token]);
+  }, [token, user]);
 
   const login = async (credentials) => {
     try {
       const { data } = await loginUser(credentials);
-      console.log("Full API Response:", data);
+      console.log("Login Response:", data);
 
       setToken(data.token);
-      setUsername(data.user.username); 
+      setUser({
+        username: data.user.username,
+        email: data.user.email,
+        profileImage: data.user.profileImage || "https://th.bing.com/th/id/OIP.KnbpXB9cvYR3epwfrzu_wAHaI3?rs=1&pid=ImgDetMain", 
+      });
 
-      localStorage.setItem("token", data.token);
       return data;
     } catch (error) {
       console.error("Login failed:", error.response?.data || error.message);
-      return false;
+      throw error;
     }
   };
 
@@ -45,15 +52,15 @@ export const AuthProvider = ({ children }) => {
   };
 
   const logout = () => {
-    setUsername(null);
+    setUser(null);
     setToken("");
     localStorage.removeItem("token");
-    navigate('/login');
-
+    localStorage.removeItem("user");
+    navigate('/login');  
   };
 
   return (
-    <AuthContext.Provider value={{ username, token, login, register, logout }}>
+    <AuthContext.Provider value={{ user, token, login, logout,register }}>
       {children}
     </AuthContext.Provider>
   );

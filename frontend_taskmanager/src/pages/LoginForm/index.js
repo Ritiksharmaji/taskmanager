@@ -35,9 +35,11 @@ const LoginForm = () => {
 
     try {
       const response = await login(userDetails);
+      console.log("user:",response.user);
+      console.log("user name:",response.user.username);
+      console.log("user email:",response.user.email);
 
       if (response && response.token) {
-        localStorage.setItem("token", response.token);
         navigate("/dashboard");
       } else {
         onSubmitFailure(response.error || "Login failed. Please try again.");

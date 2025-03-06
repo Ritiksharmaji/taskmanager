@@ -1,0 +1,115 @@
+import React, { useState, useContext, useEffect } from "react";
+import { useParams, useNavigate } from "react-router-dom";
+import AuthContext from "../context/AuthContext";
+import TaskContext from "../context/TaskContext";
+import "./UpdateTask.css";
+
+const UpdateTask = () => {
+  const { tasks, updateTask } = useContext(TaskContext);
+  const { user } = useContext(AuthContext); // Fetch user details from context
+  const { id } = useParams();
+  const navigate = useNavigate();
+
+  const taskId = Number(id);
+  const existingTask = tasks.find((task) => task.id === taskId);
+
+  // Initialize state
+  const [taskData, setTaskData] = useState({
+    title: "",
+    description: "",
+    dueDate: "",
+    status: "Pending",
+  });
+
+  useEffect(() => {
+    if (existingTask) {
+      setTaskData({
+        title: existingTask.title || "",
+        description: existingTask.description || "",
+        dueDate: existingTask.dueDate ? existingTask.dueDate.split("T")[0] : "",
+        status: existingTask.status || "Pending",
+      });
+    }
+  }, [existingTask]);
+
+  const handleChange = (e) => {
+    setTaskData({ ...taskData, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (!existingTask) return;
+    await updateTask(taskId, taskData);
+    navigate("/dashboard");
+  };
+
+  if (!existingTask) {
+    return <div className="update-task-container"><h2>Task Not Found</h2></div>;
+  }
+
+  return (
+    <div className="task-dashboard-container">
+      {/* Left Side - Task Form */}
+      <div className="task-form-section">
+        <h2 className="dashboard-heading">Update Task</h2>
+        <form className="task-form-wrapper" onSubmit={handleSubmit}>
+          <div className="task-input-group">
+            <label className="task-label">Title:</label>
+            <input type="text" name="title"  className="task-input" value={taskData.title} onChange={handleChange} required />
+          </div>
+
+          <div className="task-input-group">
+            <label className="task-label">Description:</label>
+            <textarea name="description"
+             value={taskData.description}
+             className="task-input task-textarea"
+             rows="3"
+              onChange={handleChange} required />
+          </div>
+
+          <div className="task-row">
+          <div className="task-input-group">
+            <label className="task-label">Status:</label>
+            <select name="status" 
+            value={taskData.status}
+             className="task-input"
+             onChange={handleChange} required>
+              <option value="Pending">Pending</option>
+              <option value="In Progress">In Progress</option>
+              <option value="Completed">Completed</option>
+            </select>
+          </div>
+
+
+          <div className="task-input-group">
+            <label className="task-label">Due Date:</label>
+            <input type="date"
+             name="dueDate" 
+             className="task-input"
+             value={taskData.dueDate}
+              onChange={handleChange} required />
+          </div>
+
+          </div>
+     
+          <button type="submit" className="task-submit-btn">Update Task</button>
+        </form>
+      </div>
+
+      {/* Right Side - User Details */}
+      <div className="user-section">
+      <div className="user-profile">
+          <img src={user?.profileImage} alt="User Profile" className="profile-image" />
+          <h3>{user?.username || "N/A"}</h3>
+          <p>{user?.email || "N/A"}</p>
+        </div>
+
+        <button className="task-manager-btn" onClick={() => navigate("/tasks")}>
+          Go to Task Manager
+        </button>
+      </div>
+    </div>
+  );
+};
+
+export default UpdateTask;

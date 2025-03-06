@@ -31,6 +31,7 @@ export const editTask = async (taskId, updatedTaskData, token) => {
 
 
 export const deleteTask = async (taskId, token) => {
+  console.log(" task and token during deleteTask the task from clinet side",taskId,token);
   return axios.delete(`${API_URL}/tasks/${taskId}`, {
     headers: { Authorization: `Bearer ${token}` },
   });
