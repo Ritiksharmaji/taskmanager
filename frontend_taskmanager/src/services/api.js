@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API_URL = "http://localhost:5000/api"; // Update with your backend URL
+const API_URL = "http://localhost:5000/api"; 
 
 export const registerUser = async (userData) => {
   return axios.post(`${API_URL}/auth/register`, userData);
@@ -23,8 +23,17 @@ export const addTask = async (taskData, token) => {
   });
 };
 
+export const editTask = async (taskId, updatedTaskData, token) => {
+  return axios.put(`${API_URL}/tasks/${taskId}`, updatedTaskData, {
+    headers: { Authorization: `Bearer ${token}` },
+  });
+};
+
+
 export const deleteTask = async (taskId, token) => {
   return axios.delete(`${API_URL}/tasks/${taskId}`, {
     headers: { Authorization: `Bearer ${token}` },
   });
 };
+
+

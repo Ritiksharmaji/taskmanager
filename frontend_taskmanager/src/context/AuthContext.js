@@ -1,11 +1,13 @@
 import React, { createContext, useState, useEffect } from "react";
 import { loginUser, registerUser } from "../services/api";
+import { useNavigate } from "react-router-dom";
 
 const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
-  const [username, setUsername] = useState(null); // ✅ Use "username"
+  const [username, setUsername] = useState(null); 
   const [token, setToken] = useState(localStorage.getItem("token") || "");
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (token) {
@@ -21,10 +23,10 @@ export const AuthProvider = ({ children }) => {
       console.log("Full API Response:", data);
 
       setToken(data.token);
-      setUsername(data.user.username); // ✅ Use "username"
+      setUsername(data.user.username); 
 
       localStorage.setItem("token", data.token);
-      return true;
+      return data;
     } catch (error) {
       console.error("Login failed:", error.response?.data || error.message);
       return false;
@@ -35,12 +37,7 @@ export const AuthProvider = ({ children }) => {
     try {
       const { data } = await registerUser(newUser);
       console.log("Registration Response:", data);
-
-      setToken(data.token);
-      setUsername(data.user.username); // ✅ Store username
-
-      localStorage.setItem("token", data.token);
-      return true;
+      return data;
     } catch (error) {
       console.error("Registration failed:", error.response?.data || error.message);
       return false;
@@ -51,6 +48,8 @@ export const AuthProvider = ({ children }) => {
     setUsername(null);
     setToken("");
     localStorage.removeItem("token");
+    navigate('/login');
+
   };
 
   return (

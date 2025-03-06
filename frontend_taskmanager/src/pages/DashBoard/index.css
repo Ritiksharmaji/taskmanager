@@ -1,0 +1,97 @@
+/* Dashboard Container */
+.jobby-app-container {
+  background-color: #000000;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Card Layout */
+.card-container {
+  background-color: #272727;
+  padding: 30px;
+  border-radius: 15px;
+  width: 400px;
+  text-align: center;
+  box-shadow: 0 4px 10px rgba(255, 255, 255, 0.1);
+}
+
+/* Heading */
+.dashboard-heading {
+  color: #fff;
+  font-size: 24px;
+  font-weight: 600;
+  margin-bottom: 20px;
+}
+
+/* Logout Button */
+.logout-button {
+  background-color: #ff4757;
+  padding: 10px;
+  border-radius: 10px;
+  font-size: 16px;
+  font-family: 'Roboto', sans-serif;
+  font-weight: 500;
+  border: none;
+  color: #fff;
+  margin-bottom: 20px;
+  cursor: pointer;
+  width: 100%;
+  transition: background 0.3s ease-in-out;
+}
+
+.logout-button:hover {
+  background-color: #d63031;
+}
+
+/* Task List */
+.task-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+/* Task Item */
+.task-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #333;
+  padding: 12px;
+  border-radius: 5px;
+  margin-bottom: 10px;
+  color: #fff;
+  font-size: 16px;
+}
+
+/* Delete Button */
+.delete-button {
+  background-color: #e63946;
+  padding: 6px 12px;
+  border-radius: 5px;
+  border: none;
+  color: #fff;
+  cursor: pointer;
+  transition: background 0.3s ease-in-out;
+}
+
+.delete-button:hover {
+  background-color: #c62828;
+}
+
+/* Responsive Design */
+@media (max-width: 480px) {
+  .card-container {
+    width: 90%;
+    padding: 20px;
+  }
+
+  .task-item {
+    font-size: 14px;
+  }
+
+  .delete-button {
+    padding: 5px 10px;
+  }
+}
