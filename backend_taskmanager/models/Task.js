@@ -24,6 +24,9 @@ const Task = sequelize.define("Task", {
     type: DataTypes.DATEONLY, // Stores only the date (YYYY-MM-DD format)
     allowNull: true, // Set to false if dueDate is required
   },
+},
+{
+  timestamps: false, 
 });
 
 // Relationship: One User -> Many Tasks

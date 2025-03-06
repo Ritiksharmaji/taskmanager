@@ -18,7 +18,7 @@ exports.register = async (req, res) => {
 
     const hashedPassword = await bcrypt.hash(password, 10);
     const user = await User.create({ username, email, password: hashedPassword });
-
+    console.log("user has registered", user);
     res.status(201).json({ message: "User registered", userId: user.id });
   } catch (error) {
     console.error("Registration error:", error);
@@ -37,7 +37,8 @@ exports.login = async (req, res) => {
     }
 
     const token = generateToken(user);
-    res.json({ message: "Login successful", token });
+    console.log("user has logged in",user);
+    res.json({ message: "Login successful", token ,user});
   } catch (error) {
     res.status(500).json({ error: "Login failed" });
   }
