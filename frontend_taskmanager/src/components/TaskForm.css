@@ -9,7 +9,6 @@
   min-height: 100vh;
 }
 
-/* Task Form Section */
 .task-form-section {
   flex: 2;
   background: #27293d;
@@ -78,7 +77,6 @@
   margin-top: 8px;
 }
 
-/* User Section */
 .user-section {
   flex: 1;
   background: #27293d;
@@ -105,7 +103,8 @@
   border: 3px solid #6366f1;
 }
 
-.task-manager-btn {
+.task-manager-btn,
+.logout-button {
   background: #ff4b5c;
   color: white;
   padding: 12px;
@@ -115,13 +114,13 @@
   margin-top: 20px;
   font-size: 16px;
   transition: background 0.3s ease-in-out;
+  margin-left: 10px;
 }
 
 .task-manager-btn:hover {
   background: #d43f4f;
 }
 
-/* Responsive */
 @media (max-width: 768px) {
   .task-dashboard-container {
     flex-direction: column;

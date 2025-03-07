@@ -7,7 +7,6 @@
   color: #ffffff;
 }
 
-/* Form and Image Section */
 .form-section {
   width: 40%;
   padding: 40px;
@@ -31,7 +30,7 @@
   border-radius: 10px;
 }
 
-/* Form Styles */
+
 .form-title {
   font-size: 24px;
   font-weight: bold;
@@ -102,7 +101,6 @@
   text-decoration: underline;
 }
 
-/* Responsive Design */
 @media (max-width: 1024px) {
   .form-section, .image-section {
     width: 45%;
@@ -160,8 +158,6 @@
   }
 }
 
-
-/* Responsive Design */
 @media (max-width: 1024px) {
   .form-section, .image-section {
     width: 45%;
@@ -185,7 +181,7 @@
   }
 
   .image-section {
-    display: none; /* Hide image section on mobile */
+    display: none; 
   }
 }
 

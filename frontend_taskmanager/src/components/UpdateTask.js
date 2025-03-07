@@ -1,19 +1,19 @@
 import React, { useState, useContext, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import AuthContext from "../context/AuthContext";
 import TaskContext from "../context/TaskContext";
 import "./UpdateTask.css";
 
 const UpdateTask = () => {
   const { tasks, updateTask } = useContext(TaskContext);
-  const { user } = useContext(AuthContext); // Fetch user details from context
+  const { user } = useContext(AuthContext);
   const { id } = useParams();
   const navigate = useNavigate();
 
   const taskId = Number(id);
   const existingTask = tasks.find((task) => task.id === taskId);
-
-  // Initialize state
   const [taskData, setTaskData] = useState({
     title: "",
     description: "",
@@ -39,67 +39,103 @@ const UpdateTask = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!existingTask) return;
-    await updateTask(taskId, taskData);
-    navigate("/dashboard");
+
+    try {
+      await updateTask(taskId, taskData);
+      toast.success("Task updated successfully!", {
+        position: "top-right",
+        autoClose: 3000,
+      });
+      
+      setTimeout(() => {
+        navigate("/dashboard");
+      }, 3000);
+    } catch (error) {
+      toast.error("Failed to update task. Please try again.", {
+        position: "top-right",
+        autoClose: 3000,
+      });
+    }
   };
 
   if (!existingTask) {
-    return <div className="update-task-container"><h2>Task Not Found</h2></div>;
+    return (
+      <div className="update-task-container">
+        <h2>Task Not Found</h2>
+      </div>
+    );
   }
 
   return (
     <div className="task-dashboard-container">
-      {/* Left Side - Task Form */}
       <div className="task-form-section">
         <h2 className="dashboard-heading">Update Task</h2>
         <form className="task-form-wrapper" onSubmit={handleSubmit}>
           <div className="task-input-group">
             <label className="task-label">Title:</label>
-            <input type="text" name="title"  className="task-input" value={taskData.title} onChange={handleChange} required />
+            <input
+              type="text"
+              name="title"
+              className="task-input"
+              value={taskData.title}
+              onChange={handleChange}
+              required
+            />
           </div>
 
           <div className="task-input-group">
             <label className="task-label">Description:</label>
-            <textarea name="description"
-             value={taskData.description}
-             className="task-input task-textarea"
-             rows="3"
-              onChange={handleChange} required />
+            <textarea
+              name="description"
+              value={taskData.description}
+              className="task-input task-textarea"
+              rows="3"
+              onChange={handleChange}
+              required
+            />
           </div>
 
           <div className="task-row">
-          <div className="task-input-group">
-            <label className="task-label">Status:</label>
-            <select name="status" 
-            value={taskData.status}
-             className="task-input"
-             onChange={handleChange} required>
-              <option value="Pending">Pending</option>
-              <option value="In Progress">In Progress</option>
-              <option value="Completed">Completed</option>
-            </select>
+            <div className="task-input-group">
+              <label className="task-label">Status:</label>
+              <select
+                name="status"
+                value={taskData.status}
+                className="task-input"
+                onChange={handleChange}
+                required
+              >
+                <option value="Pending">Pending</option>
+                <option value="completed">Completed</option>
+              </select>
+            </div>
+
+            <div className="task-input-group">
+              <label className="task-label">Due Date:</label>
+              <input
+                type="date"
+                name="dueDate"
+                className="task-input"
+                value={taskData.dueDate}
+                onChange={handleChange}
+                required
+              />
+            </div>
           </div>
 
-
-          <div className="task-input-group">
-            <label className="task-label">Due Date:</label>
-            <input type="date"
-             name="dueDate" 
-             className="task-input"
-             value={taskData.dueDate}
-              onChange={handleChange} required />
-          </div>
-
-          </div>
-     
-          <button type="submit" className="task-submit-btn">Update Task</button>
+          <button type="submit" className="task-submit-btn">
+            Update Task
+          </button>
         </form>
       </div>
 
-      {/* Right Side - User Details */}
       <div className="user-section">
-      <div className="user-profile">
-          <img src={user?.profileImage} alt="User Profile" className="profile-image" />
+        <div className="user-profile">
+          <img
+            src={user?.profileImage}
+            alt="User Profile"
+            className="profile-image"
+          />
           <h3>{user?.username || "N/A"}</h3>
           <p>{user?.email || "N/A"}</p>
         </div>
@@ -108,7 +144,9 @@ const UpdateTask = () => {
           Go to Task Manager
         </button>
       </div>
+        <ToastContainer />
     </div>
+    
   );
 };
 

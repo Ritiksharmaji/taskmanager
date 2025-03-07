@@ -5,17 +5,17 @@ import "./TaskList.css";
 import AuthContext from "../context/AuthContext";
 
 const TaskList = () => {
-  const { tasks, removeTask, updateTask } = useContext(TaskContext); 
-  const { user } = useContext(AuthContext);
+  const { tasks, removeTask, updateTask } = useContext(TaskContext);
   const navigate = useNavigate();
+  const { user, logout } = useContext(AuthContext);
 
   const markComplete = (task) => {
-    updateTask(task.id, { ...task, status: "Completed" });
+    updateTask(task.id, { ...task, status: "completed" });
   };
 
   return (
-    <div className="container">
-      
+    <div className="task-dashboard-container">
+      {/* Task Section */}
       <div className="task-container">
         <h2 className="task-heading">All Tasks</h2>
         <ul className="task-list">
@@ -31,7 +31,7 @@ const TaskList = () => {
                 <div className="task-actions">
                   <button className="task-btn update" onClick={() => navigate(`/update-task/${task.id}`)}>Update</button>
                   <button className="task-btn delete" onClick={() => removeTask(task.id)}>Delete</button>
-                  {task.status !== "Completed" && (
+                  {task.status !== "completed" && (
                     <button className="task-btn complete" onClick={() => markComplete(task)}>Complete</button>
                   )}
                 </div>
@@ -43,18 +43,23 @@ const TaskList = () => {
         </ul>
       </div>
 
-      
+      {/* User Section */}
       <div className="user-section">
-      <div className="user-profile">
+        <div className="user-profile">
           <img src={user?.profileImage} alt="User Profile" className="profile-image" />
           <h3>{user?.username || "N/A"}</h3>
           <p>{user?.email || "N/A"}</p>
         </div>
-        <button className="task-manager-btn" onClick={() => navigate("/task-create")}>
-          Create Task
-        </button>
+        <div className="user-buttons">
+          <button className="task-manager-btn" onClick={() => navigate("/task-create")}>
+            Create Task
+          </button>
+          <button className="task-manager-btn" onClick={() => navigate("/dashboard")}>
+            dashboard
+          </button>
+          <button className="logout-button" onClick={logout}>Logout</button>
+        </div>
       </div>
-      
     </div>
   );
 };

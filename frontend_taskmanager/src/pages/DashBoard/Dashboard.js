@@ -9,6 +9,12 @@ const Dashboard = () => {
   const { user, logout } = useContext(AuthContext);
   const navigate = useNavigate();
 
+
+  const handleLogout = () => {
+    logout(); 
+    navigate('/login'); 
+  };
+
   return (
     <div className="dashboard-container">
      
@@ -31,7 +37,7 @@ const Dashboard = () => {
           <h3>{user?.username}</h3>
           <p>{user?.email}</p>
         </div>
-        <button className="logout-button" onClick={logout}>Logout</button>
+        <button className="logout-button" onClick={handleLogout}>Logout</button>
 
        
         <div className="task-navigation">

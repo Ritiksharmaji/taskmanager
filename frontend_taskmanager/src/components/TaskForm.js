@@ -8,28 +8,25 @@ import "./TaskForm.css";
 
 const TaskForm = () => {
   const { tasks, createTask } = useContext(TaskContext);
-  const { user } = useContext(AuthContext);
+  const { user, logout } = useContext(AuthContext);
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [status, setStatus] = useState("pending");
   const [dueDate, setDueDate] = useState("");
-  const [errorMsg, setErrorMsg] = useState("");
   const navigate = useNavigate();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    setErrorMsg("");
-
     if (!title.trim()) {
-      setErrorMsg("Task title cannot be empty.");
+      toast.error("Task title cannot be empty.", { position: "top-right", autoClose: 3000 });
       return;
     }
     if (!description.trim()) {
-      setErrorMsg("Task description cannot be empty.");
+      toast.error("Task description cannot be empty.", { position: "top-right", autoClose: 3000 });
       return;
     }
     if (!dueDate) {
-      setErrorMsg("Please select a due date.");
+      toast.error("Please select a due date.", { position: "top-right", autoClose: 3000 });
       return;
     }
 
@@ -37,7 +34,7 @@ const TaskForm = () => {
       (task) => task.title.toLowerCase() === title.toLowerCase()
     );
     if (taskExists) {
-      setErrorMsg("A task with this title already exists.");
+      toast.error("A task with this title already exists.", { position: "top-right", autoClose: 3000 });
       return;
     }
 
@@ -49,28 +46,25 @@ const TaskForm = () => {
       dueDate,
     };
 
-    createTask(newTask);
-    toast.success("Task added successfully!", {
-      position: "top-right",
-      autoClose: 3000,
-    });
-
-    setTitle("");
-    setDescription("");
-    setStatus("pending");
-    setDueDate("");
+    try {
+      await createTask(newTask);
+      toast.success("Task added successfully!", { position: "top-right", autoClose: 3000 });
+      setTitle("");
+      setDescription("");
+      setStatus("pending");
+      setDueDate("");
+    } catch (error) {
+      toast.error("Failed to create task. Please try again.", { position: "top-right", autoClose: 3000 });
+    }
   };
 
   return (
     <div className="task-dashboard-container">
-      {/* Left Side - Task Form */}
       <div className="task-form-section">
         <h2 className="dashboard-heading">Create a New Task</h2>
         <form className="task-form-wrapper" onSubmit={handleSubmit}>
           <div className="task-input-group">
-            <label className="task-label" htmlFor="taskTitle">
-              Task Title
-            </label>
+            <label className="task-label" htmlFor="taskTitle">Task Title</label>
             <input
               type="text"
               id="taskTitle"
@@ -82,9 +76,7 @@ const TaskForm = () => {
           </div>
 
           <div className="task-input-group">
-            <label className="task-label" htmlFor="taskDescription">
-              Task Description
-            </label>
+            <label className="task-label" htmlFor="taskDescription">Task Description</label>
             <textarea
               id="taskDescription"
               placeholder="Enter task description"
@@ -97,9 +89,7 @@ const TaskForm = () => {
 
           <div className="task-row">
             <div className="task-input-group">
-              <label className="task-label" htmlFor="taskStatus">
-                Status
-              </label>
+              <label className="task-label" htmlFor="taskStatus">Status</label>
               <select
                 id="taskStatus"
                 className="task-input"
@@ -112,9 +102,7 @@ const TaskForm = () => {
             </div>
 
             <div className="task-input-group">
-              <label className="task-label" htmlFor="dueDate">
-                Due Date
-              </label>
+              <label className="task-label" htmlFor="dueDate">Due Date</label>
               <input
                 type="date"
                 id="dueDate"
@@ -125,15 +113,10 @@ const TaskForm = () => {
             </div>
           </div>
 
-          <button className="task-submit-btn" type="submit">
-            Add Task
-          </button>
-
-          {errorMsg && <p className="task-error-msg">* {errorMsg}</p>}
+          <button className="task-submit-btn" type="submit">Add Task</button>
         </form>
       </div>
 
-      {/* Right Side - User Details */}
       <div className="user-section">
         <div className="user-profile">
           <img src={user?.profileImage} alt="User Profile" className="profile-image" />
@@ -143,8 +126,11 @@ const TaskForm = () => {
         <button className="task-manager-btn" onClick={() => navigate("/tasks")}>
           Go to Task Manager
         </button>
+        <button className="task-manager-btn" onClick={() => navigate("/dashboard")}>
+            dashboard
+          </button>
+        <button className="logout-button" onClick={logout}>Logout</button>
       </div>
-
       <ToastContainer />
     </div>
   );

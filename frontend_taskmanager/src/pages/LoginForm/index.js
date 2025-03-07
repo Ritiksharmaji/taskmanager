@@ -57,7 +57,6 @@ const LoginForm = () => {
   return (
     <div className="auth-container">
       <div className="auth-card">
-        {/* Left Side - Image */}
         <div className="auth-image">
           <img
             src="https://img.freepik.com/free-vector/project-manager-concept-illustration_114360-21568.jpg"
@@ -65,7 +64,6 @@ const LoginForm = () => {
           />
         </div>
         
-        {/* Right Side - Form */}
         <div className="auth-form">
           <div className="heading">
             <h2>Login</h2>

@@ -54,11 +54,9 @@ const TaskManagerDashboard = () => {
             Add
           </button>
         </div>
-
-        {/* Task List */}
         <ul className="task-list">
           {tasks.map((task) => (
-            <li key={task.id} className={`task-item ${task.status === "Completed" ? "completed" : ""}`}>
+            <li key={task.id} className={`task-item ${task.status === "completed" ? "completed" : ""}`}>
               {editingTask && editingTask.id === task.id ? (
                 <input
                   type="text"
@@ -78,7 +76,7 @@ const TaskManagerDashboard = () => {
                     <button className="edit-button" onClick={() => handleEditTask(task)}>Edit</button>
                     <button className="delete-button" onClick={() => removeTask(task.id)}>Delete</button>
                     <button className="complete-button" onClick={() => toggleTaskStatus(task.id)}>
-                      {task.status === "Completed" ? "Undo" : "Complete"}
+                      {task.status === "completed" ? "Undo" : "Complete"}
                     </button>
                   </>
                 )}

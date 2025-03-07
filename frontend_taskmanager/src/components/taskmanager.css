@@ -1,6 +1,5 @@
 
 
-/* Dashboard Container */
 .jobby-app-container {
   display: flex;
   justify-content: center;
@@ -17,7 +16,6 @@
   text-align: center;
 }
 
-/* Dashboard Heading */
 .dashboard-heading {
   font-size: 22px;
   font-weight: bold;
@@ -25,7 +23,6 @@
   color: #fff;
 }
 
-/* Logout Button */
 .logout-button {
   background-color: #ff4d4d;
   color: #fff;
@@ -41,7 +38,6 @@
   background-color: #cc0000;
 }
 
-/* Task Input Section */
 .task-input-container {
   display: flex;
   gap: 8px;
@@ -70,7 +66,6 @@
   background-color: #388e3c;
 }
 
-/* Task List */
 .task-list {
   list-style: none;
   padding: 0;
@@ -89,17 +84,13 @@
   transition: 0.3s;
 }
 
-.task-item:hover {
-  background: #f1f1f1;
-}
 
-/* Task Actions */
+
 .task-actions {
   display: flex;
   gap: 8px;
 }
 
-/* Edit & Delete Buttons */
 .edit-button,
 .delete-button,
 .save-button {
@@ -137,7 +128,6 @@
   background-color: #0056b3;
 }
 
-/* Edit Input */
 .edit-input {
   width: 70%;
   padding: 6px;
@@ -146,7 +136,6 @@
   font-size: 14px;
 }
 
-/* Responsive Design */
 @media (max-width: 450px) {
   .card-container {
     width: 90%;

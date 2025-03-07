@@ -1,10 +1,4 @@
-.container{
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-}
-
+/* General Container */
 .task-dashboard-container {
   display: flex;
   justify-content: space-between;
@@ -15,7 +9,7 @@
   min-height: 100vh;
 }
 
-/* Task List Section */
+/* Task Section */
 .task-container {
   flex: 2;
   background: #27293d;
@@ -60,6 +54,7 @@
 
 .task-actions {
   display: flex;
+  flex-wrap: wrap;
   gap: 10px;
   margin-top: 10px;
 }
@@ -136,14 +131,21 @@
   border: 3px solid #6366f1;
 }
 
-.task-manager-btn {
+.user-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.task-manager-btn,
+.logout-button {
   background: #ff4b5c;
   color: white;
   padding: 12px;
   border: none;
   border-radius: 6px;
   cursor: pointer;
-  margin-top: 20px;
   font-size: 16px;
   transition: background 0.3s ease-in-out;
 }
@@ -152,19 +154,62 @@
   background: #d43f4f;
 }
 
-/* Responsive */
-@media (max-width: 768px) {
+/* Responsive Design */
+@media (max-width: 1024px) {
   .task-dashboard-container {
     flex-direction: column;
     align-items: center;
+    padding: 20px;
   }
 
-  .task-container, .user-section {
+  .task-container {
     width: 100%;
+    max-width: 600px;
   }
 
   .user-section {
+    width: 100%;
+    max-width: 400px;
     position: relative;
     height: auto;
+    margin-top: 20px;
+  }
+
+  .task-actions {
+    justify-content: center;
+  }
+}
+
+@media (max-width: 768px) {
+  .task-dashboard-container {
+    padding: 15px;
+  }
+
+  .task-container {
+    padding: 20px;
+  }
+
+  .user-section {
+    padding: 15px;
+  }
+}
+
+@media (max-width: 480px) {
+  .task-container, .user-section {
+    padding: 15px;
+  }
+
+  .task-btn {
+    font-size: 12px;
+    padding: 6px 10px;
+  }
+
+  .profile-image {
+    width: 70px;
+    height: 70px;
+  }
+
+  .user-buttons {
+    flex-direction: column;
   }
 }

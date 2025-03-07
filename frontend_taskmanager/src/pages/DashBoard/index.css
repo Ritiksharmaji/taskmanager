@@ -55,7 +55,6 @@
   background: #d43f4f;
 }
 
-/* Right - User Section */
 .user-section {
   flex: 1;
   background: #27293d;
@@ -79,7 +78,7 @@
   border-radius: 50%;
   object-fit: cover;
   margin-bottom: 10px;
-  border: 2px solid #6366f1; /* Add border with accent color */
+  border: 2px solid #6366f1; 
 }
 
 .logout-button {
@@ -96,7 +95,6 @@
   background: #d43f4f;
 }
 
-/* Task Navigation Buttons */
 .task-navigation {
   margin-top: 20px;
   display: flex;
@@ -117,7 +115,6 @@
   background: #4f52d1;
 }
 
-/* Responsive Design */
 @media (max-width: 768px) {
   .dashboard-container {
     flex-direction: column;
