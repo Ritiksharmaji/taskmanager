@@ -29,21 +29,3 @@ dueDate DATETIME,
 
 select _ from ritik.users;
 select _ from ritik.tasks;
-
-## ------------------------------------
-
-step-5: after create the table do coding and run the program :npx nodemon server.js
-: npx create-react-app frontend_taskmanager
-step-6: install the axis and react router : npm install react-router-dom axios
-step-7: install below dependencies :
-"axios": "^1.8.1",
-"react": "^19.0.0",
-"react-dom": "^19.0.0",
-"react-router-dom": "^7.2.0",
-"react-scripts": "5.0.1",
-"web-vitals": "^2.1.4"
-
-step-8: start coding for front-end
-step-9: install the react-toastify: npm install react-toastify
-
-step-10: run the project:npm start
