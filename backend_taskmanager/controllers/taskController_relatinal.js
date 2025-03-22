@@ -1,5 +1,6 @@
 const Task = require("../models/Task");
 
+
 exports.createTask = async (req, res) => {
   try {
     const { title, description, status, dueDate } = req.body;
@@ -13,7 +14,7 @@ exports.createTask = async (req, res) => {
       description,
       status: status || "pending",
       dueDate: dueDate || null,
-      userId: req.user._id, // Mongoose uses `_id` instead of `id`
+      userId: req.user.id,
     });
 
     res.status(201).json({ message: "Task created", task });
@@ -23,9 +24,10 @@ exports.createTask = async (req, res) => {
   }
 };
 
+
 exports.getAllTasks = async (req, res) => {
   try {
-    const tasks = await Task.find({ userId: req.user._id }); // Mongoose uses `{ userId: req.user._id }`
+    const tasks = await Task.findAll({ where: { userId: req.user.id } });
     res.json(tasks);
   } catch (error) {
     console.error(error);
@@ -33,13 +35,16 @@ exports.getAllTasks = async (req, res) => {
   }
 };
 
+
 exports.getTasksByDueDate = async (req, res) => {
   try {
     const { dueDate } = req.params;
 
-    const tasks = await Task.find({
-      dueDate,
-      userId: req.user._id,
+    const tasks = await Task.findAll({
+      where: {
+        dueDate,
+        userId: req.user.id,
+      },
     });
 
     if (!tasks.length) {
@@ -53,10 +58,11 @@ exports.getTasksByDueDate = async (req, res) => {
   }
 };
 
+
 exports.getTaskById = async (req, res) => {
   try {
     const { taskId } = req.params;
-    const task = await Task.findOne({ _id: taskId, userId: req.user._id });
+    const task = await Task.findOne({ where: { id: taskId, userId: req.user.id } });
 
     if (!task) {
       return res.status(404).json({ error: "Task not found" });
@@ -69,16 +75,14 @@ exports.getTaskById = async (req, res) => {
   }
 };
 
+
 exports.updateTask = async (req, res) => {
   try {
-    const task = await Task.findOneAndUpdate(
-      { _id: req.params.id, userId: req.user._id },
-      req.body,
-      { new: true } // Returns updated task
-    );
+    const task = await Task.findOne({ where: { id: req.params.id, userId: req.user.id } });
 
     if (!task) return res.status(404).json({ error: "Task not found" });
 
+    await task.update(req.body);
     res.json({ message: "Task updated", task });
   } catch (error) {
     console.error(error);
@@ -86,12 +90,14 @@ exports.updateTask = async (req, res) => {
   }
 };
 
+
 exports.deleteTask = async (req, res) => {
   try {
-    const task = await Task.findOneAndDelete({ _id: req.params.id, userId: req.user._id });
+    const task = await Task.findOne({ where: { id: req.params.id, userId: req.user.id } });
 
     if (!task) return res.status(404).json({ error: "Task not found" });
 
+    await task.destroy();
     res.json({ message: "Task deleted" });
   } catch (error) {
     console.error(error);

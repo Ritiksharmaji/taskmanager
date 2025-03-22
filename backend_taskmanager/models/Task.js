@@ -1,36 +1,32 @@
-const { DataTypes } = require("sequelize");
-const sequelize = require("../config/database");
-const User = require("./User");
+const mongoose = require("mongoose");
 
-const Task = sequelize.define("Task", {
-  id: {
-    type: DataTypes.INTEGER,
-    primaryKey: true,
-    autoIncrement: true,
+const taskSchema = new mongoose.Schema(
+  {
+    title: {
+      type: String,
+      required: true,
+    },
+    description: {
+      type: String,
+      required: true,
+    },
+    status: {
+      type: String,
+      enum: [ "in-progress", "completed"],
+      default: "in-progress",
+    },
+    dueDate: {
+      type: Date, 
+      required: false, 
+    },
+    userId: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User", 
+      required: true,
+    },
   },
-  title: {
-    type: DataTypes.STRING,
-    allowNull: false,
-  },
-  description: {
-    type: DataTypes.TEXT,
-    allowNull: false,
-  },
-  status: {
-    type: DataTypes.ENUM("pending", "in-progress", "completed"),
-    defaultValue: "pending",
-  },
-  dueDate: {
-    type: DataTypes.DATEONLY, // Stores only the date (YYYY-MM-DD format)
-    allowNull: true, // Set to false if dueDate is required
-  },
-},
-{
-  timestamps: false, 
-});
+  { timestamps: true } 
+);
 
-// Relationship: One User -> Many Tasks
-User.hasMany(Task, { foreignKey: "userId", onDelete: "CASCADE" });
-Task.belongsTo(User, { foreignKey: "userId" });
-
+const Task = mongoose.model("Task", taskSchema);
 module.exports = Task;

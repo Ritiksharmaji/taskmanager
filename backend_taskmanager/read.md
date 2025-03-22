@@ -29,3 +29,27 @@ dueDate DATETIME,
 
 select _ from ritik.users;
 select _ from ritik.tasks;
+
+## --------- convert to mongoose
+
+npm install mongoose
+
+Key Differences Between Sequelize & Mongoose
+Feature Sequelize (SQL) Mongoose (MongoDB)
+Finding a User by Email User.findOne({ where: { email } }) User.findOne({ email })
+Primary Key user.id (auto-incremented) user.\_id (MongoDB ObjectId)
+Creating a User User.create({ username, email, password }) User.create({ username, email, password })
+Database Structure Uses tables and relations Uses documents and collections
+Query Syntax SQL-style queries JSON-style queries
+
+## -----------
+
+Key Differences Between Sequelize & Mongoose
+Feature Sequelize (SQL) Mongoose (MongoDB)
+Finding a Task by ID Task.findOne({ where: { id, userId } }) Task.findOne({ \_id: id, userId })
+Finding All Tasks Task.findAll({ where: { userId } }) Task.find({ userId })
+Creating a Task Task.create({ title, description, status, dueDate, userId }) Task.create({ title, description, status, dueDate, userId })
+Updating a Task task.update(req.body) Task.findOneAndUpdate({ \_id: id, userId }, req.body, { new: true })
+Deleting a Task task.destroy() Task.findOneAndDelete({ \_id: id, userId })
+Primary Key Uses id (Auto Increment) Uses \_id (MongoDB ObjectId)
+Query Syntax SQL-style queries JSON-style queries
