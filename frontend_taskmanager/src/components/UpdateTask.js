@@ -9,11 +9,13 @@ import "./UpdateTask.css";
 const UpdateTask = () => {
   const { tasks, updateTask } = useContext(TaskContext);
   const { user } = useContext(AuthContext);
+  console.log(useParams());
   const { id } = useParams();
   const navigate = useNavigate();
 
-  const taskId = Number(id);
-  const existingTask = tasks.find((task) => task.id === taskId);
+
+  const taskId = id;
+  const existingTask = tasks.find((task) => task._id === taskId);
   const [taskData, setTaskData] = useState({
     title: "",
     description: "",

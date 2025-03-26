@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import TaskContext from "../context/TaskContext";
 import { useNavigate } from "react-router-dom";
 import "./TaskList.css";
@@ -8,9 +8,14 @@ const TaskList = () => {
   const { tasks, removeTask, updateTask } = useContext(TaskContext);
   const navigate = useNavigate();
   const { user, logout } = useContext(AuthContext);
+  const [taskList, setTaskList] = useState(tasks);
+  
+  useEffect(() => {
+    setTaskList(tasks); // Update local state whenever tasks change
+  }, [tasks]);
 
   const markComplete = (task) => {
-    updateTask(task.id, { ...task, status: "completed" });
+    updateTask(task._id, { ...task, status: "completed" });
   };
 
   return (
@@ -21,7 +26,7 @@ const TaskList = () => {
         <ul className="task-list">
           {tasks.length > 0 ? (
             tasks.map((task) => (
-              <li key={task.id} className="task-item">
+              <li key={task._id} className="task-item">
                 <div className="task-content">
                   <h3 className="task-title">{task.title}</h3>
                   <p className="task-description">{task.description}</p>
@@ -29,8 +34,8 @@ const TaskList = () => {
                   <p><strong>Status:</strong> {task.status}</p>
                 </div>
                 <div className="task-actions">
-                  <button className="task-btn update" onClick={() => navigate(`/update-task/${task.id}`)}>Update</button>
-                  <button className="task-btn delete" onClick={() => removeTask(task.id)}>Delete</button>
+                  <button className="task-btn update" onClick={() => navigate(`/update-task/${task._id}`)}>Update</button>
+                  <button className="task-btn delete" onClick={() => removeTask(task._id)}>Delete</button>
                   {task.status !== "completed" && (
                     <button className="task-btn complete" onClick={() => markComplete(task)}>Complete</button>
                   )}
