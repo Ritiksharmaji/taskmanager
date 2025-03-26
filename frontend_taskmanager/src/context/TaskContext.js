@@ -34,7 +34,7 @@ export const TaskProvider = ({ children }) => {
   const updateTask = async (taskId, updatedTaskData) => {
     try {
       const { data } = await editTask(taskId, updatedTaskData, token);
-      setTasks(tasks.map(task => task.id === taskId ? data.task : task));
+      setTasks(tasks.map(task => task._id === taskId ? data.task : task));
     } catch (error) {
       console.error("Error updating task:", error);
     }
@@ -43,7 +43,7 @@ export const TaskProvider = ({ children }) => {
   const removeTask = async (taskId) => {
     try {
       await deleteTask(taskId, token);
-      setTasks(tasks.filter(task => task.id !== taskId));
+      setTasks(tasks.filter(task => task._id !== taskId));
       
     } catch (error) {
       console.error("Error deleting task:", error);

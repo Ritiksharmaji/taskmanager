@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useState } from "react";
 import TaskContext from "../context/TaskContext";
 import { useNavigate } from "react-router-dom";
 import "./TaskList.css";
@@ -8,23 +8,17 @@ const TaskList = () => {
   const { tasks, removeTask, updateTask } = useContext(TaskContext);
   const navigate = useNavigate();
   const { user, logout } = useContext(AuthContext);
-  const [taskList, setTaskList] = useState(tasks);
-  
-  useEffect(() => {
-    setTaskList(tasks); // Update local state whenever tasks change
-  }, [tasks]);
-
+  const [expandedTask, setExpandedTask] = useState(null);
 
   const markComplete = (task) => {
-    const updatedTask = { ...task, status: "completed" };
-    updateTask(task._id, updatedTask);
-  
-    // Update the local state immediately
-    setTaskList((prevTasks) =>
-      prevTasks.map((t) => (t._id === task._id ? updatedTask : t))
-    );
+    updateTask(task._id, { ...task, status: "completed" });
   };
-  
+
+  // Function to truncate long descriptions
+  const truncateText = (text, limit) => {
+    return text.length > limit ? text.substring(0, limit) + "..." : text;
+  };
+
   return (
     <div className="task-dashboard-container">
       {/* Task Section */}
@@ -35,16 +29,51 @@ const TaskList = () => {
             tasks.map((task) => (
               <li key={task._id} className="task-item">
                 <div className="task-content">
-                  <h3 className="task-title">{task.title}</h3>
-                  <p className="task-description">{task.description}</p>
-                  <p><strong>Due Date:</strong> {new Date(task.dueDate).toLocaleDateString()}</p>
-                  <p><strong>Status:</strong> {task.status}</p>
+                  <h3 className="task-title"> <strong>Title: </strong> {task.title}</h3>
+                  <p className="task-description">
+                    <strong>Description:</strong>
+                    {expandedTask === task._id
+                      ? task.description
+                      : truncateText(task.description, 100)}
+                  </p>
+                  {task.description.length > 100 && (
+                    <button
+                      className="read-more-btn"
+                      onClick={() =>
+                        setExpandedTask(expandedTask === task._id ? null : task._id)
+                      }
+                    >
+                      {expandedTask === task._id ? "Read Less" : "Read More"}
+                    </button>
+                  )}
+                  <p>
+                    <strong>Due Date:</strong>{" "}
+                    {new Date(task.dueDate).toLocaleDateString()}
+                  </p>
+                  <p>
+                    <strong>Status:</strong> {task.status}
+                  </p>
                 </div>
                 <div className="task-actions">
-                  <button className="task-btn update" onClick={() => navigate(`/update-task/${task._id}`)}>Update</button>
-                  <button className="task-btn delete" onClick={() => removeTask(task._id)}>Delete</button>
+                  <button
+                    className="task-btn update"
+                    onClick={() => navigate(`/update-task/${task._id}`)}
+                  >
+                    Update
+                  </button>
+                  <button
+                    className="task-btn delete"
+                    onClick={() => removeTask(task._id)}
+                  >
+                    Delete
+                  </button>
                   {task.status !== "completed" && (
-                    <button className="task-btn complete" onClick={() => markComplete(task)}>Complete</button>
+                    <button
+                      className="task-btn complete"
+                      onClick={() => markComplete(task)}
+                    >
+                      Complete
+                    </button>
                   )}
                 </div>
               </li>
@@ -58,7 +87,11 @@ const TaskList = () => {
       {/* User Section */}
       <div className="user-section">
         <div className="user-profile">
-          <img src={user?.profileImage} alt="User Profile" className="profile-image" />
+          <img
+            src={user?.profileImage}
+            alt="User Profile"
+            className="profile-image"
+          />
           <h3>{user?.username || "N/A"}</h3>
           <p>{user?.email || "N/A"}</p>
         </div>
@@ -67,7 +100,7 @@ const TaskList = () => {
             Create Task
           </button>
           <button className="task-manager-btn" onClick={() => navigate("/dashboard")}>
-            dashboard
+            Dashboard
           </button>
           <button className="logout-button" onClick={logout}>Logout</button>
         </div>

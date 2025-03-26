@@ -9,10 +9,8 @@ import "./UpdateTask.css";
 const UpdateTask = () => {
   const { tasks, updateTask } = useContext(TaskContext);
   const { user } = useContext(AuthContext);
-  console.log(useParams());
   const { id } = useParams();
   const navigate = useNavigate();
-
 
   const taskId = id;
   const existingTask = tasks.find((task) => task._id === taskId);
@@ -20,7 +18,7 @@ const UpdateTask = () => {
     title: "",
     description: "",
     dueDate: "",
-    status: "Pending",
+    status: "pending",
   });
 
   useEffect(() => {
@@ -107,7 +105,7 @@ const UpdateTask = () => {
                 onChange={handleChange}
                 required
               >
-                <option value="Pending">Pending</option>
+                <option value="pending">Pending</option>
                 <option value="completed">Completed</option>
               </select>
             </div>
