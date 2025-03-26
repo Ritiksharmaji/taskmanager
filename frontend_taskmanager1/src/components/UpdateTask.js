@@ -9,13 +9,11 @@ import "./UpdateTask.css";
 const UpdateTask = () => {
   const { tasks, updateTask } = useContext(TaskContext);
   const { user } = useContext(AuthContext);
-  console.log(useParams());
   const { id } = useParams();
   const navigate = useNavigate();
 
-
-  const taskId = id;
-  const existingTask = tasks.find((task) => task._id === taskId);
+  const taskId = Number(id);
+  const existingTask = tasks.find((task) => task.id === taskId);
   const [taskData, setTaskData] = useState({
     title: "",
     description: "",
@@ -29,7 +27,7 @@ const UpdateTask = () => {
         title: existingTask.title || "",
         description: existingTask.description || "",
         dueDate: existingTask.dueDate ? existingTask.dueDate.split("T")[0] : "",
-        status: existingTask.status || "pending",
+        status: existingTask.status || "Pending",
       });
     }
   }, [existingTask]);

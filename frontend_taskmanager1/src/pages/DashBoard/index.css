@@ -1,0 +1,137 @@
+.dashboard-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 20px;
+  gap: 20px;
+  flex-wrap: wrap; 
+  background: #1e1e2f; 
+  min-height: 100vh; 
+}
+
+.task-section {
+  flex: 2;
+  background: #27293d; 
+  padding: 20px;
+  border-radius: 8px;
+  min-width: 300px;
+  color: #fff;
+  
+}
+
+.dashboard-heading {
+  color: #ffffff; 
+  text-align: center;
+}
+
+.task-list {
+  list-style: none;
+  padding: 0;
+}
+
+
+
+.task-item {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px;
+  border-radius: 5px;
+  margin-bottom: 10px;
+  font-weight: 500; 
+
+}
+
+
+.delete-button {
+  background: #ff4b5c;
+  color: white;
+  padding: 8px 12px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.delete-button:hover {
+  background: #d43f4f;
+}
+
+.user-section {
+  flex: 1;
+  background: #27293d;
+  padding: 20px;
+  border-radius: 8px;
+  text-align: center;
+  box-shadow: 2px 2px 10px rgba(99, 102, 241, 0.3);
+  min-width: 250px;
+  color: white;
+}
+
+.user-profile {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.profile-image {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-bottom: 10px;
+  border: 2px solid #6366f1; 
+}
+
+.logout-button {
+  background: #ff4b5c;
+  color: white;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 20px;
+}
+
+.logout-button:hover {
+  background: #d43f4f;
+}
+
+.task-navigation {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.task-button {
+  background: #6366f1;
+  color: white;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.task-button:hover {
+  background: #4f52d1;
+}
+
+@media (max-width: 768px) {
+  .dashboard-container {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .task-section, .user-section {
+    width: 100%;
+  }
+
+  .task-navigation {
+    flex-direction: row;
+    justify-content: center;
+  }
+
+  .task-button {
+    flex: 1;
+  }
+}
+
