@@ -21,8 +21,8 @@ const Task = sequelize.define("Task", {
     defaultValue: "pending",
   },
   dueDate: {
-    type: DataTypes.DATEONLY, // Stores only the date (YYYY-MM-DD format)
-    allowNull: true, // Set to false if dueDate is required
+    type: DataTypes.DATEONLY, 
+    allowNull: true, 
   },
 },
 {
