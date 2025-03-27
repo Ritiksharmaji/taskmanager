@@ -1,6 +1,9 @@
 import axios from "axios";
 
-const API_URL = "http://localhost:5000/api"; 
+// const API_URL = "http://localhost:5000/api"; 
+const API_URL = "https://taskmanager-phi-six.vercel.app/api"; 
+
+
 
 export const registerUser = async (userData) => {
   return axios.post(`${API_URL}/auth/register`, userData);
