@@ -17,3 +17,6 @@ const existingTask = tasks.find((task) => task.id === taskId);
 ## install the notification 
 npm install react-toastify
 
+
+## websocket 
+1) npm install socket.io-client
