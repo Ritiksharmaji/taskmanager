@@ -53,3 +53,8 @@ Updating a Task task.update(req.body) Task.findOneAndUpdate({ \_id: id, userId }
 Deleting a Task task.destroy() Task.findOneAndDelete({ \_id: id, userId })
 Primary Key Uses id (Auto Increment) Uses \_id (MongoDB ObjectId)
 Query Syntax SQL-style queries JSON-style queries
+
+
+## ----------- websocket --
+1) npm install socket.io
+2) 
