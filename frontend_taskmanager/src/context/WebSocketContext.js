@@ -10,12 +10,12 @@ export const WebSocketProvider = ({ children }) => {
 
   useEffect(() => {
     if (token && !socket) {
-    //   const newSocket = io('https://taskmanager-phi-six.vercel.app', {
-    //     auth: { token },
-    //   });
-     const newSocket = io('http://localhost:5000', {
+      const newSocket = io('https://taskmanager-backend-ahff.onrender.com', {
         auth: { token },
       });
+    //  const newSocket = io('http://localhost:5000', {
+    //     auth: { token },
+    //   });
 
 
       setSocket(newSocket);
