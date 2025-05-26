@@ -2,9 +2,11 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
-  background-color: #000000;
-  color: #ffffff;
+  min-height: 100vh;
+  padding: 20px;
+  background-color: #000;
+  color: #fff;
+  flex-wrap: wrap;
 }
 
 .form-section {
@@ -30,11 +32,12 @@
   border-radius: 10px;
 }
 
-
+/* Form Styles */
 .form-title {
   font-size: 24px;
   font-weight: bold;
   margin-bottom: 20px;
+  text-align: center;
 }
 
 .form-container {
@@ -75,7 +78,7 @@
   border: none;
   color: #fff;
   cursor: pointer;
-  margin-top: 10px;
+  transition: background-color 0.3s ease;
 }
 
 .login-button:hover {
@@ -101,6 +104,9 @@
   text-decoration: underline;
 }
 
+/* ✅ Responsive Styles */
+
+/* Large Tablets */
 @media (max-width: 1024px) {
   .form-section, .image-section {
     width: 45%;
@@ -111,80 +117,36 @@
   }
 }
 
+/* Tablets */
 @media (max-width: 768px) {
   .auth-container {
     flex-direction: column;
-    height: auto;
-    padding: 20px;
+    padding: 30px 20px;
   }
 
-  .form-section, .image-section {
+  .form-section {
     width: 90%;
     padding: 30px;
   }
 
-  .auth-image {
-    width: 100%;
-    max-width: 350px;
-  }
-}
-
-@media (max-width: 480px) {
-  .form-section {
-    width: 100%;
-    padding: 20px;
-  }
-
   .image-section {
-    width: 100%;
-  }
-
-  .auth-image {
-    width: 90%;
-    max-width: 300px;
+    display: none; /* Hide image on small tablets */
   }
 
   .form-title {
-    font-size: 20px;
+    font-size: 22px;
   }
 
   .user-input, .login-button {
-    font-size: 14px;
-    padding: 10px;
+    font-size: 15px;
   }
 
   .label {
-    font-size: 12px;
+    font-size: 13px;
   }
 }
 
-@media (max-width: 1024px) {
-  .form-section, .image-section {
-    width: 45%;
-  }
-
-  .auth-image {
-    width: 90%;
-  }
-}
-
-@media (max-width: 768px) {
-  .auth-container {
-    flex-direction: column;
-    height: auto;
-    padding: 20px;
-  }
-
-  .form-section {
-    width: 90%;
-    padding: 30px;
-  }
-
-  .image-section {
-    display: none; 
-  }
-}
-
+/* Mobile Devices */
 @media (max-width: 480px) {
   .form-section {
     width: 100%;
@@ -204,4 +166,3 @@
     font-size: 12px;
   }
 }
-
