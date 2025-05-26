@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import AuthContext from "../../context/AuthContext";
 import TaskContext from "../../context/TaskContext";
 import "./index.css";
+import UserProfile from "../../components/Profile";
 
 const Dashboard = () => {
   const { tasks, removeTask } = useContext(TaskContext);
@@ -32,14 +33,9 @@ const Dashboard = () => {
 
       
       <div className="user-section">
-        <div className="user-profile">
-          <img src={user?.profileImage} alt="User Profile" className="profile-image" />
-          <h3>{user?.username}</h3>
-          <p>{user?.email}</p>
-        </div>
-        <button className="logout-button" onClick={handleLogout}>Logout</button>
-
        
+          <UserProfile/>
+      
         <div className="task-navigation">
           <button className="task-button" onClick={() => navigate("/tasks")}>Task Manager</button>
           <button className="task-button" onClick={() => navigate("/task-create")}>Task Create</button>

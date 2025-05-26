@@ -1,3 +1,20 @@
+/* GLOBAL RESET */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+
+
+
+
+
+
+
+
+
+/* MAIN CONTAINER */
 .task-dashboard-container {
   display: flex;
   justify-content: space-between;
@@ -8,6 +25,8 @@
   background: #1e1e2f;
   min-height: 100vh;
 }
+
+/* FORM SECTION */
 .task-form-section {
   flex: 2;
   background: #27293d;
@@ -15,9 +34,12 @@
   border-radius: 10px;
   min-width: 350px;
   color: white;
-  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  width: 100%;
+  max-width: 800px;
 }
 
+/* FORM STRUCTURE */
 .task-form-wrapper {
   display: flex;
   flex-direction: column;
@@ -49,11 +71,14 @@
   resize: none;
 }
 
+/* ROW OF FIELDS */
 .task-row {
   display: flex;
   gap: 15px;
+  flex-wrap: wrap;
 }
 
+/* SUBMIT BUTTON */
 .task-submit-btn {
   background: #6366f1;
   color: white;
@@ -70,22 +95,27 @@
   background: #4f52d1;
 }
 
+/* ERROR MESSAGE */
 .task-error-msg {
   color: #ff4b5c;
   font-size: 14px;
   margin-top: 8px;
 }
+
+/* USER INFO SECTION */
 .user-section {
   flex: 1;
   background: #27293d;
   padding: 20px;
   border-radius: 10px;
   text-align: center;
-  min-width: 250px;
   color: white;
-  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  width: 100%;
+  max-width: 400px;
 }
 
+/* PROFILE DETAILS */
 .user-profile {
   display: flex;
   flex-direction: column;
@@ -101,6 +131,7 @@
   border: 3px solid #6366f1;
 }
 
+/* MANAGER BUTTON */
 .task-manager-btn {
   background: #ff4b5c;
   color: white;
@@ -116,17 +147,40 @@
 .task-manager-btn:hover {
   background: #d43f4f;
 }
-@media (max-width: 768px) {
+
+/* RESPONSIVE DESIGN */
+@media (max-width: 1024px) {
   .task-dashboard-container {
     flex-direction: column;
     align-items: center;
+    padding: 20px;
   }
 
-  .task-form-section, .user-section {
+  .task-form-section,
+  .user-section {
     width: 100%;
+    min-width: unset;
+    max-width: 100%;
   }
 
   .task-row {
     flex-direction: column;
+  }
+}
+
+@media (max-width: 480px) {
+  .task-form-section,
+  .user-section {
+    padding: 15px;
+  }
+
+  .task-submit-btn,
+  .task-manager-btn {
+    width: 100%;
+  }
+
+  .profile-image {
+    width: 70px;
+    height: 70px;
   }
 }

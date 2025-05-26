@@ -5,6 +5,7 @@ import "react-toastify/dist/ReactToastify.css";
 import AuthContext from "../context/AuthContext";
 import TaskContext from "../context/TaskContext";
 import "./UpdateTask.css";
+import UserProfile from "./Profile";
 
 const UpdateTask = () => {
   const { tasks, updateTask } = useContext(TaskContext);
@@ -130,15 +131,7 @@ const UpdateTask = () => {
       </div>
 
       <div className="user-section">
-        <div className="user-profile">
-          <img
-            src={user?.profileImage}
-            alt="User Profile"
-            className="profile-image"
-          />
-          <h3>{user?.username || "N/A"}</h3>
-          <p>{user?.email || "N/A"}</p>
-        </div>
+       <UserProfile/>
 
         <button className="task-manager-btn" onClick={() => navigate("/tasks")}>
           Go to Task Manager
