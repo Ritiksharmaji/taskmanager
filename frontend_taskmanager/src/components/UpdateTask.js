@@ -10,6 +10,8 @@ const UpdateTask = () => {
   const { tasks, updateTask } = useContext(TaskContext);
   const { id } = useParams();
   const navigate = useNavigate();
+  const [loading, setLoading] = useState(false);
+
 
   const taskId = id;
   const existingTask = tasks.find((task) => task._id === taskId);
@@ -40,20 +42,26 @@ const UpdateTask = () => {
     if (!existingTask) return;
 
     try {
+      setLoading(true); // 🔥 SHOW LOADER
+
       await updateTask(taskId, taskData);
+
       toast.success("Task updated successfully!", {
         position: "top-right",
         autoClose: 3000,
       });
-      navigate("/tasks");
 
+      navigate("/tasks");
     } catch (error) {
       toast.error("Failed to update task. Please try again.", {
         position: "top-right",
         autoClose: 3000,
       });
+    } finally {
+      setLoading(false); // 🔥 HIDE LOADER (always)
     }
-  };
+};
+
 
   if (!existingTask) {
     return (
@@ -120,9 +128,14 @@ const UpdateTask = () => {
             </div>
           </div>
 
-          <button type="submit" className="task-submit-btn">
-            Update Task
+          <button
+              type="submit"
+              className="task-submit-btn"
+              disabled={loading}
+            >
+              {loading ? <span className="loader"></span> : "Update Task"}
           </button>
+
         </form>
       </div>
 

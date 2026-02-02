@@ -35,6 +35,13 @@ const UserProfile = () => {
           Dashboard
         </button>
 
+         <button
+          className="task-manager-btn"
+          onClick={() => navigate("/tasks")}
+        >
+          Go to Task Manager
+        </button>
+
         <button className="logout-button" onClick={logout}>
           Logout
         </button>
