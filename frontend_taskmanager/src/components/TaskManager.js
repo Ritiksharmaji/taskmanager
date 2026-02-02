@@ -1,90 +1,13 @@
-import React, { useContext, useState } from "react";
-import AuthContext from "../context/AuthContext";
-import TaskContext from "../context/TaskContext";
-import { useNavigate } from "react-router-dom";
+import React from "react";
+import TaskList from "../components/TaskList";
+import UserProfile from "../components/UserProfile";
 import "./taskmanager.css";
 
 const TaskManagerDashboard = () => {
-  const { tasks, addTask, editTask, removeTask, toggleTaskStatus } = useContext(TaskContext);
-  const { logout } = useContext(AuthContext);
-  const navigate = useNavigate();
-
-  const [newTask, setNewTask] = useState("");
-  const [editingTask, setEditingTask] = useState(null);
-  const [editText, setEditText] = useState("");
-
-  const handleAddTask = () => {
-    if (newTask.trim() !== "") {
-      addTask({ title: newTask, status: "pending" });
-      setNewTask("");
-    }
-  };
-
-  const handleEditTask = (task) => {
-    setEditingTask(task);
-    setEditText(task.title);
-  };
-
-  const handleUpdateTask = () => {
-    if (editText.trim() !== "") {
-      editTask(editingTask.id, editText);
-      setEditingTask(null);
-      setEditText("");
-    }
-  };
-
   return (
-    <div className="jobby-app-container">
-      <div className="card-container">
-        <h2 className="dashboard-heading">Task Dashboard</h2>
-        <button className="logout-button" onClick={logout}>
-          Logout
-        </button>
-
-      
-        <div className="task-input-container">
-          <input
-            type="text"
-            placeholder="Enter a new task"
-            value={newTask}
-            onChange={(e) => setNewTask(e.target.value)}
-            className="task-input"
-          />
-          <button className="add-button" onClick={handleAddTask}>
-            Add
-          </button>
-        </div>
-        <ul className="task-list">
-          {tasks.map((task) => (
-            <li key={task.id} className={`task-item ${task.status === "completed" ? "completed" : ""}`}>
-              {editingTask && editingTask.id === task.id ? (
-                <input
-                  type="text"
-                  value={editText}
-                  onChange={(e) => setEditText(e.target.value)}
-                  className="edit-input"
-                />
-              ) : (
-                <span>{task.title} - {task.status}</span>
-              )}
-
-              <div className="task-actions">
-                {editingTask && editingTask.id === task.id ? (
-                  <button className="save-button" onClick={handleUpdateTask}>Save</button>
-                ) : (
-                  <>
-                    <button className="edit-button" onClick={() => handleEditTask(task)}>Edit</button>
-                    <button className="delete-button" onClick={() => removeTask(task.id)}>Delete</button>
-                    <button className="complete-button" onClick={() => toggleTaskStatus(task.id)}>
-                      {task.status === "completed" ? "Undo" : "Complete"}
-                    </button>
-                  </>
-                )}
-              </div>
-            </li>
-          ))}
-        </ul>
-      </div>
+    <div className="task-dashboard-container">
+      <TaskList />
+      <UserProfile />
     </div>
   );
 };

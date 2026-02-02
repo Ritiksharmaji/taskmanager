@@ -5,7 +5,7 @@ import "react-toastify/dist/ReactToastify.css";
 import AuthContext from "../context/AuthContext";
 import TaskContext from "../context/TaskContext";
 import "./UpdateTask.css";
-import UserProfile from "./Profile";
+import UserProfile from "./UserProfile";
 
 const UpdateTask = () => {
   const { tasks, updateTask } = useContext(TaskContext);
@@ -47,10 +47,8 @@ const UpdateTask = () => {
         position: "top-right",
         autoClose: 3000,
       });
-      
-      setTimeout(() => {
-        navigate("/dashboard");
-      }, 3000);
+      navigate("/tasks");
+
     } catch (error) {
       toast.error("Failed to update task. Please try again.", {
         position: "top-right",
