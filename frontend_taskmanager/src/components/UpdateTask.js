@@ -2,7 +2,6 @@ import React, { useState, useContext, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import AuthContext from "../context/AuthContext";
 import TaskContext from "../context/TaskContext";
 import "./UpdateTask.css";
 import UserProfile from "./UserProfile";

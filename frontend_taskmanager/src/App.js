@@ -6,7 +6,6 @@ import RegisterForm from "./pages/RegisterForm";
 import Dashboard from "./pages/DashBoard/Dashboard";
 import TaskForm from "./components/TaskForm";
 import TaskManager from "./components/TaskManager";
-import TaskList from "./components/TaskList";
 import UpdateTask from "./components/UpdateTask";
 import { ToastContainer } from "react-toastify";
 import { useContext } from "react";
