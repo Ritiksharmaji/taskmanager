@@ -1,6 +1,4 @@
 import React, { useContext, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import AuthContext from "../../context/AuthContext";
 import TaskContext from "../../context/TaskContext";
 import "./index.css";
 import UserProfile from "../../components/UserProfile";
@@ -9,16 +7,9 @@ const Dashboard = () => {
   const { tasks, removeTask } = useContext(TaskContext);
   console.log("Tasks in Dashboard:", tasks);
   
-  const { logout } = useContext(AuthContext);
-  const navigate = useNavigate();
-
   const [showModal, setShowModal] = useState(false);
   const [selectedTaskId, setSelectedTaskId] = useState(null);
 
-  const handleLogout = () => {
-    logout();
-    navigate("/login");
-  };
 
   const openDeleteModal = (taskId) => {
     setSelectedTaskId(taskId);

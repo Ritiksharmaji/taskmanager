@@ -9,7 +9,6 @@ import UserProfile from "./UserProfile";
 
 const UpdateTask = () => {
   const { tasks, updateTask } = useContext(TaskContext);
-  const { user } = useContext(AuthContext);
   const { id } = useParams();
   const navigate = useNavigate();
 
